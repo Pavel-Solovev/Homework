@@ -1,0 +1,60 @@
+.message {
+    width: 400px;
+    padding: 10px;
+}
+
+.message_gray {
+    position: relative;
+    padding: 10px;
+    background-color: #999ca1;
+    width: 200px;
+    height: 50px;
+    text-align: left;
+    font: 400 .9em 'Open Sans', sans-serif;
+    border: 1px solid #999ca1;
+    border-radius: 10px;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.bubble_bottom_left {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 12px solid transparent;
+    border-right: 26px solid #999ca1;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid #999ca1;
+    left: -12px;
+    bottom: -1px;
+}
+
+.message_name {
+    padding: 0;
+    margin: 0;
+    color:indigo;
+}
+
+.message_content {
+    font-size: 1.5em;
+    padding: 0;
+    margin: 0;
+}
+.message_timestamp_left {
+    text-align: right;
+    /*position: absolute;*/
+    font-size: .85em;
+    font-weight: 300;
+    bottom: 5px;
+    left: 5px;
+}
+
+.rounded_circle {
+    float: left;
+    max-width: 90px;
+    width: 100%;
+    margin-left: 10px;
+    border-radius: 50%;
+}
