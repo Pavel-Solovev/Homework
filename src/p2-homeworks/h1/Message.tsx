@@ -8,6 +8,8 @@ type PropsType = {
 
 }
 
+
+
 function Message(props: PropsType) {
     return (
         <div>
@@ -19,7 +21,6 @@ function Message(props: PropsType) {
                     <div className={style.bubble_bottom_left}></div>
                     <p className={style.message_name}>{props.name}</p>
                     <p className={style.message_content}>{props.message}</p>
-                    <div className={style.bubble_bottom_left}></div>
                     <div className={style.message_timestamp_left}>{props.time}</div>
                 </div>
             </div>

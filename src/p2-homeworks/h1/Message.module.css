@@ -1,14 +1,50 @@
+/*.body {*/
+/*    font-family: "Helvetica Neue", Helvetica, sans-serif;*/
+/*    font-size: 20px;*/
+/*    font-weight: normal;*/
+/*    max-width: 450px;*/
+/*    margin: 50px auto;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*}*/
+
+p {
+    max-width: 255px;
+    word-wrap: break-word;
+    margin-bottom: 20px;
+    line-height: 24px;
+    position: relative;
+    padding: 10px 20px;
+    border-radius: 25px;
+}
+
+p:before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    height: 25px;
+}
+
+p:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    height: 25px;
+}
+
 .message {
     width: 400px;
     padding: 10px;
+    background-color: #fcfcff
 }
+
 
 .message_gray {
     position: relative;
     padding: 10px;
     background-color: #999ca1;
-    width: 200px;
-    height: 50px;
+    width: 250px;
+    /*height: 50px;*/
     text-align: left;
     font: 400 .9em 'Open Sans', sans-serif;
     border: 1px solid #999ca1;
@@ -18,30 +54,45 @@
     flex-direction: column;
 }
 
-.bubble_bottom_left {
-    content: "";
-    width: 0px;
-    height: 0px;
+.message_gray:before {
     position: absolute;
-    border-left: 12px solid transparent;
-    border-right: 26px solid #999ca1;
-    border-top: 12px solid transparent;
-    border-bottom: 12px solid #999ca1;
+    content: '';
+    width: 0;
+    height: 0;
     left: -12px;
     bottom: -1px;
+    border-style: solid;
+    border-width: 0 0 20px 20px;
+    border-color: transparent transparent #999ca1 transparent;
 }
+
+.message_gray:after {
+    position: absolute;
+    content: '';
+    width: 29px;
+    height: 29px;
+    left: -29.91px;
+    bottom: -2px;
+    border-radius: 50%;
+    background-color: #fcfcff;
+    z-index: 99;
+}
+
 
 .message_name {
     padding: 0;
     margin: 0;
-    color:indigo;
+    color: indigo;
+    font-style: inherit;
+    font-weight: bolder;
 }
 
 .message_content {
-    font-size: 1.5em;
+    font-size: 1em;
     padding: 0;
     margin: 0;
 }
+
 .message_timestamp_left {
     text-align: right;
     /*position: absolute;*/
