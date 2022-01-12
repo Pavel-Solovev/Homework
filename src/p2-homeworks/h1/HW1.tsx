@@ -5,7 +5,7 @@ import Message from "./Message";
 const messageData = {
     avatar: 'https://sun9-74.userapi.com/Ph-WiuOtF985il9AvN9JqiCWedmHtSGSSTXrSA/ltEB2Z2-YO4.jpg',
     name: 'Some Name',
-    message: 'карурукеоуеfdhfdjfdjfdjfdjdfjdfjdfsafsagasgadsghaehddhdhg',
+    message: 'карурукеоуеfdhfdjfdjf2132132312312sgrsrgsrhsrhsrhsrhsrhsrjsrjsrj3123123123213djfdjdfjdfjdfsafsagasgadsghaehddhdhg',
     time: '22:00',
 }
 
