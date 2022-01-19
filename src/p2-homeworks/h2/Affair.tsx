@@ -14,6 +14,7 @@ function Affair(props: AffairPropsType) {
 
     return (
         <div>
+
             <div>{props.affair.name}</div>
             <div>{props.affair.priority}</div>
 
