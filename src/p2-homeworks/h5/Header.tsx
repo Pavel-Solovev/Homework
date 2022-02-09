@@ -1,12 +1,16 @@
 import React from 'react'
+import {NavLink} from 'react-router-dom'
+import s from './Header.module.css'
 
-function Header() {
+export function Header() {
+    const setActive = ({isActive}: any) => isActive ? s.active : ''
     return (
-        <div>
-            // add NavLinks
+        <nav>
+            <NavLink to={'/pre-junior'} className={setActive}>pre-junior</NavLink>
+            <NavLink to={'/junior'} className={setActive}>junior</NavLink>
+            <NavLink to={'/junior-plus'} className={setActive}>junior-plus</NavLink>
 
-        </div>
+        </nav>
     )
 }
 
-export default Header
