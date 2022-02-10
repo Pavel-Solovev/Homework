@@ -1,3 +1,40 @@
-.someClass {
+.button {
+    margin: 20px;
+    width: 60px;
+    background: rgb(212, 213, 218);
+    color: #09111a;
+    outline: none;
+}
 
+.button:focus {
+    outline: #585b64 solid 1.3px;
+}
+
+.button:active {
+    background: rgb(252, 253, 255);
+}
+
+.active {
+    background: radial-gradient(rgba(75, 0, 130, 0.51) 0px, rgba(153, 156, 161, 0.3) 60px);
+}
+
+.item {
+    margin: 10px;
+    width: 100px;
+}
+
+.high {
+    color: brown;
+}
+
+.middle {
+    color: #a5912a;
+}
+
+.low {
+    color: #3aa52a;
+}
+
+.affair {
+    display: flex;
 }

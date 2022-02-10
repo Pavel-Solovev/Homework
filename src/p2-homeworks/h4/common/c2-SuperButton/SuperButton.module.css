@@ -1,7 +1,89 @@
+@keyframes blink {
+    0% {
+        left: -130%;
+    }
+    100% {
+        left: 130%;
+    }
+}
+
 .default {
+    background: rgba(252, 252, 255, 0);
+    color: brown;
+    outline: black;
 
 }
 
 .red {
-    background: red;
+    background: brown;
+}
+.button {
+    position: relative;
+    margin: 9px;
+    width: 60px;
+    background: rgb(212, 213, 218);
+    color: #09111a;
+    outline: none;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.button:focus {
+    outline: #585b64 solid 1.3px;
+}
+
+.button:active {
+    background: rgb(252, 253, 255);
+}
+
+.button::after {
+    display: block;
+    content: '';
+    position: absolute;
+
+    left: -130%;
+    top: 0;
+    height: 100%;
+    width: 100%;
+
+    transform: skew(45deg);
+
+    background: radial-gradient(rgba(75, 0, 130, 0.51) 0px, rgba(153, 156, 161, 0.3) 60px);
+    opacity: 1;
+
+    z-index: 14;
+}
+
+.button:hover::after {
+    animation: blink 0.35s ease;
+}
+
+.button:hover::before {
+    display: block;
+    content: '';
+    position: absolute;
+
+    left: -100%;
+    top: 0;
+    height: 280%;
+    width: 300%;
+
+    transform: skew(45deg);
+
+    background: radial-gradient(rgb(47, 255, 0) 0px, rgba(153, 156, 161, 0.3) 60px);
+    opacity: 1;
+
+    z-index: 7;
+
+}
+
+.button:disabled {
+    background: rgba(9, 17, 26, 0.57);
+    cursor: auto;
+}
+.button:disabled::after {
+    z-index: -1;
+}
+.button:disabled::before {
+    z-index: -1;
 }

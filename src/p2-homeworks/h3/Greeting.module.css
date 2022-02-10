@@ -1,11 +1,62 @@
-.someClass {
-
+.error {
+    color: brown;
+    height: 20px;
+    margin-left: 10px;
 }
 
-.error {
-    border: 1px solid red;
+.errorInput{
+    margin: 10px;
+    background: rgba(165, 42, 42, 0.42);
+    color: #09111a;
+    border: 1px solid #09111a;
+    outline: #585b64 solid 1.3px;
 }
 
 .input {
-    border: 1px solid #2fff00;
+    outline: #585b64 solid 1.3px;
+    border: 1px solid #09111a;
+    margin: 10px;
+    background: rgba(153, 156, 161, 0.4);
+    color: #09111a;
+}
+
+.input:focus {
+    background: rgba(153, 156, 161, 0);
+    outline: #585b64 solid 1.3px;
+    border: #000000 solid 1px;
+}
+
+.greeting {
+    display: flex;
+    align-items: flex-start;
+}
+
+.button {
+    margin: 9px;
+    width: 60px;
+    background: rgb(212, 213, 218);
+    color: #09111a;
+    outline: none;
+}
+
+.button:focus {
+    outline: #585b64 solid 1.3px;
+}
+
+.button:active {
+    background: rgb(252, 253, 255);
+}
+
+.count {
+/*margin: 8px;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle, rgb(47, 255, 0) 0px, rgba(255, 255, 255, 0) 20px);
+    color: #09111a;
+    outline: none;
+    max-width: 90px;
+    border-radius: 50%;
 }

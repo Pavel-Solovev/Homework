@@ -1,0 +1,33 @@
+.link{
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.47);
+    margin: 10px;
+}
+.link:hover{
+    color: indigo;
+}
+
+.active {
+    color: #3aa52a;
+    text-decoration: none;
+    margin: 10px;
+}
+
+.block{
+    width: 21px;
+    height: 21px;
+    margin: 10px;
+
+    background: indigo;
+}
+
+.header{
+    display: flex;
+    width: 380px;
+    transition-duration: 500ms;
+    transform: translate(-240px);
+}
+.header:hover {
+    transition-duration: 500ms;
+    transform: translate(0);
+}

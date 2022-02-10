@@ -1,0 +1,12 @@
+.img {
+    background-image: url("./404.jpg");
+    min-height: 400%;
+    min-width: 640px;
+    width: 100%;
+    height: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+/*!* Зависит от размера изображения *!*/
+

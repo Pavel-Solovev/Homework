@@ -16,6 +16,8 @@ function Message(props: PropsType) {
             <div className={style.message}>
                 <img src={props.avatar} alt="1" className={style.rounded_circle}/>
 
+                <div className={style.angle}/>
+
                 <div className={style.message_gray}>
                     <p className={style.message_name}>{props.name}</p>
                     <p className={style.message_content}>{props.message}</p>

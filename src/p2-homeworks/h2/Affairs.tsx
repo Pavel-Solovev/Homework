@@ -1,11 +1,13 @@
 import React from 'react'
 import Affair from './Affair'
 import {AffairType, FilterType} from './HW2'
+import style from './Affairs.module.css'
 
 type AffairsPropsType = { // need to fix any
     data: AffairType[]
     setFilter: (filter: FilterType) => void
     deleteAffairCallback: (id:number) => void
+    filter:FilterType
 }
 
 function Affairs(props: AffairsPropsType) {
@@ -17,17 +19,25 @@ function Affairs(props: AffairsPropsType) {
         />
     ))
 
-    const setAll = () => {
-        props.setFilter("all")
-    } // need to fix
-    const setHigh = () => {
-        props.setFilter("high")
+    // const setAll = () => {
+    //     props.setFilter("all")
+    // } // need to fix
+    // const setHigh = () => {
+    //     props.setFilter("high")
+    // }
+    // const setMiddle = () => {
+    //     return props.setFilter("middle")
+    // }
+    // const setLow = () => {
+    //     return props.setFilter("low")
+    // }
+
+    const set = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        props.setFilter(e.currentTarget.value as FilterType) // воспринимает строку как типизацию
     }
-    const setMiddle = () => {
-        return props.setFilter("middle")
-    }
-    const setLow = () => {
-        return props.setFilter("low")
+
+    const Classes = (filter:FilterType) => {
+        return style.button + (props.filter === filter ? ' ' + style.active : ' ')
     }
 
     return (
@@ -35,10 +45,10 @@ function Affairs(props: AffairsPropsType) {
 
             {mappedAffairs}
 
-            <button onClick={setAll}>All</button>
-            <button onClick={setHigh}>High</button>
-            <button onClick={setMiddle}>Middle</button>
-            <button onClick={setLow}>Low</button>
+            <button onClick={set} className={Classes('all')} value={'all'}>All</button>
+            <button onClick={set} className={Classes('high')} value={'high'}>High</button>
+            <button onClick={set} className={Classes('middle')} value={'middle'}>Middle</button>
+            <button onClick={set} className={Classes('low')} value={'low'}>Low</button>
         </div>
     )
 }
