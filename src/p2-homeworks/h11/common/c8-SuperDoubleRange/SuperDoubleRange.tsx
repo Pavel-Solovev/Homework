@@ -1,98 +1,177 @@
 import React, {
-    ChangeEvent,
+    memo,
     useCallback,
     useEffect,
     useRef,
     useState
 } from 'react'
-import "./SuperDoubleRange.css";
+import styles from "./SuperDoubleRange.module.css";
 
 
 type SuperDoubleRangePropsType = {
     onChange: (value: [number, number]) => void
-    value?: [number, number]
-    max: number
-    min: number
+    value: [number, number]
+    max?: number
+    min?: number
+    step?: number
+    disabled?: boolean
 }
 
-const SuperDoubleRange: React.FC<SuperDoubleRangePropsType> = (
-    {
-        onChange,
-        max, min,
-        value,
-        ...restProps
-    }
-) => {
-    const [maxValue, setMaxValue] = useState(max)
-    const [minValue, setMinValue] = useState(min)
-    const maxValRef = useRef(max)
-    const minValRef = useRef(min)
-    const range = useRef(document.querySelector('#range') as HTMLElement | null)
-
-    const getPercent = useCallback((value: number) => {
-        Math.round((value - min) / (max - min) * 100)
-    }, [min, max])
-
-    useEffect(() => {
-        const minPercent = getPercent(minValue)
-        const maxPercent = getPercent(maxValRef.current)
-
-        if (range.current) {
-            range.current.style.left = `${minPercent}%`;
-            range.current.style.width = `${Number(maxPercent) - Number(minPercent)}%`
+const SuperDoubleRange: React.FC<SuperDoubleRangePropsType> = memo(
+    (
+        {
+            onChange,
+            value,
+            max = value[1],
+            min = value[0],
+            step,
+            disabled,
+            ...restProps
         }
-    }, [minValue, getPercent])
+    ) => {
+        const [minVal, maxVal] = value
+        const [isHoverThumb, setIsHoverThumb] = useState(false)
+        const maxValRef = useRef<HTMLInputElement>(null)
+        const minValRef = useRef<HTMLInputElement>(null)
+        const maxBadRef = useRef<HTMLInputElement>(null)
+        const minBadRef = useRef<HTMLInputElement>(null)
+        const range = useRef<HTMLInputElement>(null)
 
-    useEffect(() => {
-        const maxPercent = getPercent(maxValue)
-        const minPercent = getPercent(minValRef.current)
+        const onChangeHandler = useCallback((type: 'min'|'max') => {
+            const minRefVal = +minValRef.current!.value;
+            const maxRefVal = +maxValRef.current!.value;
 
-        if (range.current) {
-            range.current.style.width = `${Number(maxPercent) - Number(minPercent)}`
-        }
-    }, [maxValue, getPercent])
+            if (minRefVal <= maxRefVal) {
+                onChange([minRefVal, maxRefVal]);
 
-    useEffect(() => {
-        onChange && onChange([maxValue, minValue]);
-    }, [maxValue, minValue, onChange])
+                return
+            }
+
+            type === 'min' && onChange([maxRefVal, maxRefVal])
+            type === 'max' && onChange([minRefVal, minRefVal])
+
+        }, [onChange])
+
+        const toggleIsHoverThumb = useCallback(()=>{
+            setIsHoverThumb(!isHoverThumb)
+        }, [isHoverThumb])
+
+        useEffect(()=>{
+            const maxRefValue = +maxValRef.current!.value
+
+            if (minVal <= maxRefValue) {
+                onChange([minVal, maxRefValue]);
+
+                return
+            }
+
+            const percentValue = (minVal - min) / ((max-min)/100)
+
+            range.current!.style.setProperty(
+                '--start',
+                `${percentValue}%`
+            )
+            const minZIndex = minVal > (max + min) / 2 ? '1' : '0'
+            minValRef.current!.style.setProperty('z-index', minZIndex)
+            minBadRef.current!.style.setProperty('z-index', minZIndex)
+
+            range.current!.style.setProperty(
+                '--minBadetOffset',
+                `${percentValue / 100}`
+            );
+
+            range.current!.style.setProperty(
+                '--minBadgetOffsetWidth',
+                `${minBadRef.current!.offsetWidth}px`
+            );
+        }, [minVal, onChange, max, min]);
+
+        useEffect(() => {
+            const minRefValue = +minValRef.current!.value;
+
+            if (maxVal < minRefValue) {
+                onChange([minRefValue, minRefValue]);
+
+                return;
+            }
+
+            const percentValue = (maxVal - min) / ((max - min) / 100);
+
+            range.current!.style.setProperty('--end', `${percentValue}%`);
+
+            range.current!.style.setProperty(
+                '--maxBadgetOffset',
+                `${percentValue / 100}`
+            );
+
+            range.current!.style.setProperty(
+                '--maxBadgetOffsetWidth',
+                `${maxBadRef.current!.offsetWidth}px`
+            );
+        }, [maxVal, onChange, max, min]);
 
 
-    return (
-        <div className="container">
-            <input
-                type="range"
-                min={min}
-                max={max}
-                value={minValue}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                    const value = Math.min(Number(e.target.value), maxValue - 1);
-                    setMinValue(value);
-                    minValRef.current = value;
-                }}
-                className="thumb thumb--right"
-            />
-            <input
-                type="range"
-                min={min}
-                max={max}
-                value={maxValue}
-                onChange={(event) => {
-                    const value = Math.max(Number(event.target.value), minValue + 1);
-                    setMaxValue(value);
-                    maxValRef.current = value;
-                }}
-                className="thumb thumb--right"
-            />
-            <div className="slider">
-                <div className="slider__track"/>
-                {/*<div ref={range} className="slider__range" />*/}
-                <div className="slider__left-value">{minValue}</div>
-                <div className="slider__right-value">{maxValue}</div>
+
+        return (
+            <div
+                className={`${styles.superDoubleRange}${
+                    disabled ? ` ${styles.disable}` : ''
+                }`}
+            >
+                <div className={styles.rangeInfo}>{min}</div>
+                <div className={styles.rangeContainer} ref={range}>
+                    <div className={styles.slider}>
+                        <div className={styles.bg}></div>
+                        <div
+                            className={`${styles.track}${
+                                isHoverThumb ? ` ${styles.activeTrack}` : ''
+                            }`}
+                        ></div>
+                        <div
+                            ref={minBadRef}
+                            className={`${styles.badge} ${styles.minBadge}`}
+                        >
+                            {minVal}
+                        </div>
+                        <div
+                            ref={maxBadRef}
+                            className={`${styles.badge} ${styles.maxBadge}`}
+                        >
+                            {maxVal}
+                        </div>
+                    </div>
+                    <input
+                        ref={minValRef}
+                        type="range"
+                        value={minVal}
+                        className={styles.thumb}
+                        onChange={() => onChangeHandler('min')}
+                        onMouseEnter={toggleIsHoverThumb}
+                        onMouseLeave={toggleIsHoverThumb}
+                        step={step}
+                        disabled={disabled}
+                        max={max}
+                        min={min}
+                    />
+                    <input
+                        ref={maxValRef}
+                        type="range"
+                        value={maxVal}
+                        className={styles.thumb}
+                        onChange={() => onChangeHandler('max')}
+                        onMouseEnter={toggleIsHoverThumb}
+                        onMouseLeave={toggleIsHoverThumb}
+                        step={step}
+                        disabled={disabled}
+                        max={max}
+                        min={min}
+                    />
+                </div>
+                <div className={styles.rangeInfo}>{max}</div>
             </div>
-        </div>
 
-    )
-}
+        )
+    })
 
 
 export default SuperDoubleRange
